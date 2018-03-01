@@ -1,35 +1,30 @@
-
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "sensu/plugins/ecityruf/version"
+
+require 'date'
+require_relative 'lib/sensu/plugins/ecityruf'
 
 Gem::Specification.new do |spec|
-  spec.name          = "sensu-plugins-ecityruf"
-  spec.version       = Sensu::Plugins::Ecityruf::VERSION
-  spec.authors       = ["Hauke Altmann"]
-  spec.email         = ["hauke.altmann@aboutsource.net"]
+  spec.name        = 'sensu-plugins-ecityruf'
+  spec.version     = Sensu::Plugins::Ecityruf::VERSION
+  spec.authors     = ['Hauke Altmann']
+  spec.email       = ['hauke.altmann@aboutsource.net']
+  spec.executables = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
+  spec.files       = Dir.glob('{bin,lib}/**/*') + %w(LICENSE.txt README.md)
+  spec.platform    = Gem::Platform::RUBY
+  spec.require_paths = ['lib']
+  spec.required_ruby_version = '>= 2.1.0'
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-  spec.license       = "MIT"
+  spec.summary       = 'Sensu handler for ecityruf service'
+  spec.description   = \
+    'Handler to allow to alert connected pagers over ecityruf on events.'
+  spec.homepage      = 'https://www.aboutsource.net'
+  spec.license       = 'MIT'
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
+  spec.add_runtime_dependency 'sensu-plugin',                  '~> 1.2'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "bundler", "~> 1.16"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency 'bundler',                   '~> 1.16'
+  spec.add_development_dependency 'pry',                       '~> 0.10'
+  spec.add_development_dependency 'rake',                      '~> 10.0'
+  spec.add_development_dependency 'rubocop',                   '~> 0.32.1'
 end
