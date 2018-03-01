@@ -48,7 +48,7 @@ class Ecityruf < Sensu::Handler
         puts 'ecityruf -- sent alert ' + event_name + ' to number ' + params['number'] + '.'
       end
     rescue Timeout::Error
-      puts 'ecityruf -- time out while attempting to alert about ' + event_name
+      puts 'ecityruf -- time out while attempting to alert about ' + event_name + '.'
     end
   end
 end
