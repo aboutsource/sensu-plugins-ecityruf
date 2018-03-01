@@ -16,12 +16,11 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.1.0'
 
   spec.summary       = 'Sensu handler for ecityruf service'
-  spec.description   = \
-    'Handler to allow to alert connected pagers over ecityruf on events.'
+  spec.description   = 'Handler to allow to alert connected pagers over ecityruf on events.'
   spec.homepage      = 'https://www.aboutsource.net'
   spec.license       = 'MIT'
 
-  spec.add_runtime_dependency 'sensu-plugin',                  '~> 1.2'
+  spec.add_runtime_dependency 'sensu-plugin',                  '~> 2.1'
 
   spec.add_development_dependency 'bundler',                   '~> 1.16'
   spec.add_development_dependency 'pry',                       '~> 0.10'
