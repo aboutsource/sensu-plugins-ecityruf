@@ -34,21 +34,17 @@ class Ecityruf < Sensu::Handler
     uri = URI.parse(apiurl)
     uri.query = URI.encode_www_form(params)
 
-    begin
-      Timeout.timeout(5) do
-        Net::HTTP.start(uri.host,
-                        uri.port,
-                        use_ssl: uri.scheme == 'https',
-                        verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
-          request = Net::HTTP::Get.new uri
+    Timeout.timeout(5) do
+      Net::HTTP.start(uri.host,
+                      uri.port,
+                      use_ssl: uri.scheme == 'https',
+                      verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+        request = Net::HTTP::Get.new uri
 
-          response = http.request request
-          puts response.code
-        end
-        puts 'ecityruf -- sent alert ' + event_name + ' to number ' + params['number'] + '.'
+        response = http.request request
+        puts response.code
       end
-    rescue Timeout::Error
-      puts 'ecityruf -- time out while attempting to alert about ' + event_name + '.'
+      puts 'ecityruf -- sent alert ' + event_name + ' to number ' + params['number'] + '.'
     end
   end
 end
