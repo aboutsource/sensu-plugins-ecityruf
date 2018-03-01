@@ -34,7 +34,7 @@ class Ecityruf < Sensu::Handler
     uri = URI.parse(apiurl)
     uri.query = URI.encode_www_form(params)
 
-    Timeout.timeout(5) do
+    Timeout.timeout(60) do
       Net::HTTP.start(uri.host,
                       uri.port,
                       use_ssl: uri.scheme == 'https',
