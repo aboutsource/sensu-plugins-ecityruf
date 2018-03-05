@@ -23,7 +23,7 @@ Or install it yourself as:
 ```
 {
   "ecityruf": {
-    "number": "5200139",
+    "number": <ECITYRUF NUMBER>,
     "language": "de",
     "url": "https://inetgateway.emessage.de/cgi-bin/funkruf2.cgi"
   }
