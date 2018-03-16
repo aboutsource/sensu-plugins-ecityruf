@@ -14,10 +14,6 @@ require 'sensu-handler'
 require 'timeout'
 
 class Ecityruf < Sensu::Handler
-  def event_name
-    @event['client']['name'] + '/' + @event['check']['name']
-  end
-
   def handle
     apiurl = settings['ecityruf']['url'] || 'https://inetgateway.emessage.de/cgi-bin/funkruf2.cgi'
 
@@ -28,23 +24,27 @@ class Ecityruf < Sensu::Handler
       'number' => settings['ecityruf']['number'],
       'lengthAlert' => '',
       'service' => '1',
-      'message' => event_name + '/' + @event['check']['output']
+      'message' => '%<message>0.79s' % {
+        :message => [@event['client']['name'],  @event['check']['output']].join('/')
+      }
     }
 
     uri = URI.parse(apiurl)
     uri.query = URI.encode_www_form(params)
 
     Timeout.timeout(60) do
-      Net::HTTP.start(uri.host,
-                      uri.port,
+      Net::HTTP.start(uri.host, uri.port,
                       use_ssl: uri.scheme == 'https',
                       verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
         request = Net::HTTP::Get.new uri
-
         response = http.request request
-        puts response.code
+
+        puts 'sent alert %<alert>s to number %<number>d.' % {
+          :alert => [@event['client']['name'], @event['check']['name']].join('/'),
+          :number => params['number']
+        }
+        puts 'response: %d' % [response.code]
       end
-      puts 'ecityruf -- sent alert ' + event_name + ' to number ' + params['number'] + '.'
     end
   end
 end
