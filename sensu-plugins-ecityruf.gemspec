@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Hauke Altmann']
   spec.email       = ['hauke.altmann@aboutsource.net']
   spec.executables = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
-  spec.files       = Dir.glob('{bin,lib}/**/*') + %w[LICENSE.txt README.md]
+  spec.files       = Dir.glob('{bin,lib}/**/*') + %w[LICENSE README.md]
   spec.platform    = Gem::Platform::RUBY
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 2.1.0'
