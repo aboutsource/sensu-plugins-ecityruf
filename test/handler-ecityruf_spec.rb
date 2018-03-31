@@ -21,11 +21,12 @@ describe HandlerEcityruf do
               client: { name: 'testclient' },
               check: { name: 'testcheck', output: 'someoutput' } }
     allow(STDIN).to receive(:read).and_return(JSON.generate(event))
-    ecityruf = stub_request(:get, 'https://inetgateway.emessage.de/cgi-bin'\
-                                  '/funkruf2.cgi?action=SendMessage&class=4'\
-                                  '&language=de&lengthAlert='\
-                                  '&message=testclient/someoutput'\
-                                  '&number=123456&service=1')
+    ecityruf = stub_request(
+      :get,
+      'https://inetgateway.emessage.de/cgi-bin'\
+      '/funkruf2.cgi?action=SendMessage&class=4&language=de&lengthAlert='\
+      '&message=testclient/someoutput&number=123456&service=1'
+    )
 
     @handler.read_event(STDIN)
     @handler.handle
@@ -44,13 +45,13 @@ describe HandlerEcityruf do
                                'sadipscing elitr, sed diam nonumy eirmod '\
                                'tempor invidunt ut labore et dolore magna' } }
     allow(STDIN).to receive(:read).and_return(JSON.generate(event))
-    ecityruf = stub_request(:get, 'https://inetgateway.emessage.de/cgi-bin'\
-                                  '/funkruf2.cgi?action=SendMessage&class=4'\
-                                  '&language=de&lengthAlert='\
-                                  '&message=testclient/Lorem%20ipsum%20dolor'\
-                                  '%20sit%20amet,%20consetetur%20sadipscing'\
-                                  '%20elitr,%20sed%20diam%20no'\
-                                  '&number=123456&service=1')
+    ecityruf = stub_request(
+      :get,
+      'https://inetgateway.emessage.de/cgi-bin'\
+      '/funkruf2.cgi?action=SendMessage&class=4&language=de&lengthAlert='\
+      '&message=testclient/Lorem%20ipsum%20dolor%20sit%20amet,%20consetetur'\
+      '%20sadipscing%20elitr,%20sed%20diam%20no&number=123456&service=1'
+    )
 
     @handler.read_event(STDIN)
     @handler.handle
