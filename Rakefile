@@ -1,23 +1,11 @@
 require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+
+RSpec::Core::RakeTask.new(:spec) do |r|
+  r.pattern = FileList['test/**/*_spec.rb']
+end
 
 RuboCop::RakeTask.new
 
-desc 'Make all plugins executable'
-task :make_bin_executable do
-  `chmod -R +x bin/*`
-end
-
-desc 'Test for binstubs'
-task :check_binstubs do
-  bin_list = Gem::Specification.load('sensu-plugins-ecityruf.gemspec').executables
-  bin_list.each do |b|
-    `which #{ b }`
-    unless $CHILD_STATUS.success?
-      puts "#{b} was not a binstub"
-      exit
-    end
-  end
-end
-
-task default: [:make_bin_executable, :rubocop, :check_binstubs]
+task default: %i[rubocop spec]

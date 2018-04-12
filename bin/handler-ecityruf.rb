@@ -13,7 +13,7 @@ require 'net/https'
 require 'sensu-handler'
 require 'timeout'
 
-class Ecityruf < Sensu::Handler
+class HandlerEcityruf < Sensu::Handler
   def handle
     apiurl = settings['ecityruf']['url'] || 'https://inetgateway.emessage.de/cgi-bin/funkruf2.cgi'
 
@@ -24,9 +24,9 @@ class Ecityruf < Sensu::Handler
       'number' => settings['ecityruf']['number'],
       'lengthAlert' => '',
       'service' => '1',
-      'message' => '%<message>0.79s' % {
-        :message => [@event['client']['name'],  @event['check']['output']].join('/')
-      }
+      'message' => format('%<message>0.79s',
+                          message: [@event['client']['name'],
+                                    @event['check']['output']].join('/'))
     }
 
     uri = URI.parse(apiurl)
@@ -39,11 +39,12 @@ class Ecityruf < Sensu::Handler
         request = Net::HTTP::Get.new uri
         response = http.request request
 
-        puts 'sent alert %<alert>s to number %<number>d.' % {
-          :alert => [@event['client']['name'], @event['check']['name']].join('/'),
-          :number => params['number']
-        }
-        puts 'response: %d' % [response.code]
+        puts format('sent alert %<alert>s to number %<number>d',
+                    alert: [@event['client']['name'],
+                            @event['check']['name']].join('/'),
+                    number: params['number'])
+
+        puts format('response: %<response_code>d', response_code: response.code)
       end
     end
   end
