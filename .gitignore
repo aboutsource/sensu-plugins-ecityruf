@@ -4,6 +4,7 @@
 /coverage/
 /doc/
 /pkg/
+/Gemfile.lock
 /spec/reports/
 /tmp/
 .project
