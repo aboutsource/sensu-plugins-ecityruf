@@ -1,5 +1,7 @@
 # Sensu::Plugins::Ecityruf
 
+[![Build Status](https://travis-ci.org/aboutsource/sensu-plugins-ecityruf.svg?branch=master)](https://travis-ci.org/aboutsource/sensu-plugins-ecityruf)
+
 Sensu Handler to send messages to pagers using eCityruf with a `Sammelrufnummer`.
 
 ## Installation
