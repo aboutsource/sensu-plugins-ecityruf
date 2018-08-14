@@ -13,14 +13,14 @@ Gem::Specification.new do |spec|
   spec.files       = Dir.glob('{bin,lib}/**/*') + %w[LICENSE README.md]
   spec.platform    = Gem::Platform::RUBY
   spec.require_paths = ['lib']
-  spec.required_ruby_version = '>= 2.1.0'
+  spec.required_ruby_version = '>= 2.4.0'
 
   spec.summary       = 'Sensu handler for ecityruf service'
   spec.description   = 'Handler to alert e*Cityruf pagers'
   spec.homepage      = 'https://www.aboutsource.net'
   spec.license       = 'MIT'
 
-  spec.add_runtime_dependency 'sensu-plugin', '~> 2.1'
+  spec.add_runtime_dependency 'sensu-plugin', '~> 2.5'
 
   spec.add_development_dependency 'bundler',  '~> 1.16'
   spec.add_development_dependency 'rake',     '~> 10.0'
